@@ -2,5 +2,5 @@
 package com.cloudbees;
 
 def checkOutFromGitHub(repo) {
-  git url: ${repo}"
+  git url: "${repo}"
 }
