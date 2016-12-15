@@ -14,7 +14,7 @@ class GitHubApi {
 	}
 
 	def new_repo(name, description) {
-		GHRepository repo = this.github.createRepository(repo_name, description,
+		GHRepository repo = this.githubapi.createRepository(repo_name, description,
   		"http://www.kohsuke.org/",true/*public*/);
 	}
 }
