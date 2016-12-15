@@ -6,5 +6,5 @@ def checkOutFromGitHub(repo) {
 }
 
 def maven() {
-	mvn clean install
+	sh "mvn clean install"
 }
