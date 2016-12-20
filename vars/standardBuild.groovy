@@ -5,11 +5,11 @@ def call(body) {
     body.delegate = config
     body()
     stage('checkout') {
-		def mvnHome = tool config.tool
-	    withEnv([
-            "PATH=${mvnHome}/bin:${env.PATH}"
-        ])
 	    node {
+	    	def mvnHome = tool config.tool
+		    withEnv([
+	            "PATH=${mvnHome}/bin:${env.PATH}"
+	        ])
 	        checkout scm
 	        stage('main') {
 		        sh config.mainScript
