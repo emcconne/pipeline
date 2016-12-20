@@ -3,6 +3,7 @@ def call(body) {
     def config = [:]
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
+    println config
     stage('checkout') {
 	    node {
 	    	def mvnHome = tool config.tool
