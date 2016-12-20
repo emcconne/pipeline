@@ -1,22 +1,21 @@
 
-def call(body) {
-    def config = [:]
+def call(Map config=[:], body) {
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
     println config
-    stage('checkout') {
-	    node {
-	    	def mvnHome = tool config.tool
-		    withEnv([
-	            "PATH=${mvnHome}/bin:${env.PATH}"
-	        ])
+    body()
+    def mvnHome = tool config.tool
+    withEnv([
+        "PATH=${mvnHome}/bin:${env.PATH}"
+    ]) {
+	    stage('checkout') {
 	        checkout scm
-	        stage('main') {
-		        sh config.mainScript
-		    }
-	        stage('post') {
-	        	sh config.postScript
-	        }
+	    }
+	    stage('main') {
+	        sh config.mainScript
+	    }
+	    stage('post') {
+	    	sh config.postScript
 	    }
 	}
 }
