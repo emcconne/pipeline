@@ -14,3 +14,4 @@ def call(body) {
         	sh config.postScript
         }
     }
+}
