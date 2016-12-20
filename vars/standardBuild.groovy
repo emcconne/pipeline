@@ -4,14 +4,19 @@ def call(body) {
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
     body()
-    stage 'checkout'
-    node {
-        checkout scm
-        stage('main') {
-	        sh config.mainScript
+    stage('checkout') {
+		def mvnHome = tool config.tool
+	    withEnv([
+            "PATH=${mvnHome}/bin:${env.PATH}"
+        ])
+	    node {
+	        checkout scm
+	        stage('main') {
+		        sh config.mainScript
+		    }
+	        stage('post') {
+	        	sh config.postScript
+	        }
 	    }
-        stage('post') {
-        	sh config.postScript
-        }
-    }
+	}
 }
